@@ -1,0 +1,594 @@
+/* --- الإعدادات العامة والخطوط --- */
+:root {
+  --primary-color: #5cb85c; /* أخضر للإضافة */
+  --secondary-color: #dc3545; /* أحمر للمصروف */
+  --edit-color: #ffc107; /* أصفر للتعديل */
+  --cancel-color: #6c757d; /* رمادي للإلغاء */
+  --balance-color: #007bff; /* أزرق للرصيد */
+  --bg-light: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-dark: #343a40;
+  --text-muted: #6c757d;
+  --filter-active-bg: #007bff; /* لون للفلتر النشط */
+  --filter-active-text: #fff;
+  --budget-bar-bg: #e9ecef;
+  --budget-over-color: #dc3545; /* لون تجاوز الميزانية */
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 30px 15px;
+  min-height: 100vh;
+  text-align: center;
+  direction: rtl;
+  background-color: #e9ecef;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.container {
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: #fff;
+  width: 95%;
+  max-width: 950px; /* زيادة العرض لاستيعاب كل الأقسام */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+}
+
+h1,
+h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--text-dark);
+}
+h3 {
+  text-align: right;
+  padding-right: 5px;
+  margin-top: 25px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 5px;
+}
+hr {
+  margin: 25px 0;
+  border: none;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- قسم الملخص المالي --- */
+.summary-details {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  text-align: center;
+  gap: 15px;
+}
+.detail-box {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--bg-light);
+}
+.detail-box h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.95em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.detail-box p {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.detail-box .percentage {
+  display: block;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+.detail-box.income p {
+  color: var(--primary-color);
+}
+.detail-box.expense p {
+  color: var(--secondary-color);
+}
+.detail-box.balance p {
+  color: var(--balance-color);
+}
+
+/* --- قسم النموذج --- */
+form {
+  margin-top: 15px;
+}
+form div {
+  margin-bottom: 12px;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+form label {
+  flex-basis: 70px;
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+form input[type="number"],
+form input[type="text"],
+form select {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+  min-width: 150px;
+}
+form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: left 0.7em top 50%;
+  background-size: 0.65em auto;
+  padding-left: 2em;
+}
+form button {
+  padding: 12px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 1.05em;
+  font-weight: 500;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  transition: background-color 0.2s, opacity 0.2s;
+  box-sizing: border-box;
+}
+form button#submit-btn {
+  background-color: var(--primary-color);
+}
+form button#submit-btn:hover {
+  background-color: #4a9b4a;
+}
+form button#cancel-edit-btn {
+  background-color: var(--cancel-color);
+  margin-top: 8px;
+  display: none;
+}
+form button#cancel-edit-btn:hover {
+  background-color: #5a6268;
+}
+form button#submit-btn.editing {
+  background-color: var(--edit-color);
+  color: var(--text-dark);
+}
+form button#submit-btn.editing:hover {
+  background-color: #e0a800;
+}
+
+/* --- قسم تحديد الميزانيات --- */
+#set-budgets-section {
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--bg-light);
+}
+#set-budgets-section h3 {
+  text-align: center;
+  border-bottom: none;
+  margin-bottom: 15px;
+}
+#current-budget-month {
+  font-weight: bold;
+  color: var(--balance-color);
+} /* لون مميز للشهر الحالي */
+.budget-input-list {
+  display: grid; /* استخدام grid لتنظيم الحقول */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* أعمدة مرنة */
+  gap: 15px; /* مسافة بين الحقول */
+  margin-bottom: 15px;
+}
+.budget-item {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+.budget-item label {
+  flex-grow: 1; /* يأخذ المساحة المتاحة */
+  text-align: right;
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+.budget-item input[type="number"] {
+  width: 100px; /* عرض ثابت لحقل الرقم */
+  padding: 6px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  text-align: left; /* محاذاة الرقم لليسار */
+  font-size: 1em;
+  -moz-appearance: textfield; /* إخفاء الأسهم في فايرفوكس */
+}
+/* إخفاء أسهم حقول الأرقام في كروم */
+.budget-item input[type="number"]::-webkit-outer-spin-button,
+.budget-item input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.budget-note {
+  font-size: 0.85em;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* --- قسم التحكم في العرض (فلترة وبحث وتصدير) --- */
+#view-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 10px 15px; /* زيادة الحشو الأفقي قليلاً */
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+}
+#filter-controls {
+  text-align: right;
+  flex-shrink: 0; /* عدم انكماش قسم الفلترة */
+}
+#filter-controls label {
+  font-weight: 500;
+  margin-left: 10px;
+  font-size: 0.95em;
+}
+.filter-btn {
+  padding: 6px 12px;
+  font-size: 0.9em;
+  margin: 0 3px;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  color: var(--text-dark);
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+.filter-btn:hover {
+  background-color: #e2e6ea;
+}
+.filter-btn.active {
+  background-color: var(--filter-active-bg);
+  color: var(--filter-active-text);
+  border-color: var(--filter-active-bg);
+  font-weight: bold;
+}
+#search-control {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  min-width: 200px; /* تصغير العرض الأدنى قليلاً */
+}
+#search-control label {
+  font-weight: 500;
+  margin-left: 10px;
+  font-size: 0.95em;
+  flex-shrink: 0;
+}
+#search-input {
+  flex-grow: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 0.95em;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  appearance: auto;
+}
+/* زر التصدير */
+#export-control {
+  flex-shrink: 0;
+}
+.export-btn {
+  padding: 7px 15px; /* حجم مشابه لأزرار الفلترة */
+  font-size: 0.9em;
+  cursor: pointer;
+  background-color: var(--cancel-color); /* لون رمادي مبدئيًا */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+.export-btn:hover {
+  background-color: #5a6268;
+}
+
+/* --- قسم الجدول --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 0.95em;
+  table-layout: fixed;
+}
+th,
+td {
+  border: 1px solid var(--border-color);
+  padding: 10px 12px;
+  text-align: right;
+  vertical-align: middle;
+  overflow-wrap: break-word;
+}
+th {
+  background-color: var(--bg-light);
+  font-weight: 600;
+  color: var(--text-dark);
+}
+th:nth-child(1),
+td:nth-child(1) {
+  width: 10%;
+} /* النوع */
+th:nth-child(2),
+td:nth-child(2) {
+  width: 18%;
+} /* الفئة */
+th:nth-child(3),
+td:nth-child(3) {
+  width: 25%;
+} /* الوصف */
+th:nth-child(4),
+td:nth-child(4) {
+  width: 17%;
+  text-align: left;
+  padding-left: 10px;
+} /* المبلغ */
+th:nth-child(5),
+td:nth-child(5) {
+  width: 18%;
+  white-space: nowrap;
+} /* الوقت */
+th:nth-child(6),
+td:nth-child(6) {
+  width: 12%;
+  text-align: center;
+} /* إجراء */
+td.income {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+td.expense {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+td:nth-child(5) {
+  color: var(--text-muted);
+}
+.action-btn {
+  color: white;
+  border: none;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85em;
+  line-height: 1.2;
+  transition: background-color 0.2s;
+  margin: 0 3px;
+}
+.delete-btn {
+  background-color: var(--secondary-color);
+}
+.delete-btn:hover {
+  background-color: #c82333;
+}
+.edit-btn {
+  background-color: var(--edit-color);
+  color: var(--text-dark);
+}
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+tbody tr:nth-child(even) {
+  background-color: var(--bg-light);
+}
+tbody tr:hover {
+  background-color: #dee2e6;
+}
+
+/* --- قسم التحليل --- */
+.analysis-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+.chart-box,
+.category-summary-box,
+.budget-progress-box {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+.chart-box h3,
+.category-summary-box h3,
+.budget-progress-box h3 {
+  margin-top: 0;
+  border-bottom: none;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.chart-container {
+  position: relative;
+  width: 95%;
+  max-width: 600px;
+  height: 300px;
+  margin: 15px auto;
+}
+.category-chart-container {
+  max-width: 450px;
+  aspect-ratio: 1.3 / 1;
+}
+
+/* --- قسم عرض تقدم الميزانية --- */
+#budget-progress-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+#budget-progress-list li {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border-color);
+}
+#budget-progress-list li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.budget-progress-item .category-name {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+.budget-progress-item .values {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+.budget-progress-item .progress-bar-container {
+  background-color: var(--budget-bar-bg);
+  border-radius: 5px;
+  height: 10px;
+  overflow: hidden;
+}
+.budget-progress-item .progress-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  width: 0%;
+  border-radius: 5px;
+  transition: width 0.5s ease-in-out;
+}
+.budget-progress-item .progress-bar.over-budget {
+  background-color: var(--budget-over-color);
+}
+.budget-progress-item .remaining {
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-top: 5px;
+  display: block;
+}
+.budget-progress-item .remaining.over {
+  color: var(--budget-over-color);
+}
+.budget-progress-item .remaining.under {
+  color: var(--primary-color);
+}
+
+/* --- قسم إدارة الفئات --- */
+#manage-categories-section {
+  margin-top: 25px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+#manage-categories-section h3 {
+  border-bottom: none;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.category-management-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+}
+.add-category-form {
+  flex-basis: 300px;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--bg-light);
+}
+.add-category-form h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+#add-category-form div {
+  align-items: baseline;
+}
+#add-category-form label {
+  flex-basis: 80px;
+}
+#add-category-form input,
+#add-category-form select {
+  min-width: 0;
+}
+#add-category-form button {
+  background-color: var(--primary-color);
+  font-size: 1em;
+}
+#add-category-form button:hover {
+  background-color: #4a9b4a;
+}
+.current-categories {
+  flex-grow: 1;
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+.category-list-box {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 15px;
+}
+.category-list-box h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  color: var(--text-muted);
+}
+.category-list-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.category-list-box li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border-color);
+  font-size: 0.95em;
+  text-align: right;
+}
+.category-list-box li:last-child {
+  border-bottom: none;
+}
+.category-list-box li.no-categories {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}

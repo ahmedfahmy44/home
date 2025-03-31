@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متتبع المصروفات</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>متتبع المصروفات البسيط</h1>
+
+    <!-- قسم الملخص المالي -->
+    <div class="summary-details">
+      <div class="detail-box income">
+        <h4>الدخل الكلي</h4>
+        <p id="total-income-display">0.00</p><span class="percentage" id="income-percentage">(0%)</span>
+      </div>
+      <div class="detail-box expense">
+        <h4>المصروفات الكلية</h4>
+        <p id="total-expense-display">0.00</p><span class="percentage" id="expense-percentage">(0%)</span>
+      </div>
+      <div class="detail-box balance">
+        <h4>الرصيد الحالي</h4>
+        <p id="balance-display">0.00</p><span class="percentage"> </span>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- قسم نموذج الإضافة/التعديل -->
+    <h3>إضافة / تعديل معاملة</h3>
+    <form id="transaction-form">
+      <div><label for="type">النوع:</label><select id="type">
+          <option value="income">دخل (+)</option>
+          <option value="expense">مصروف (-)</option>
+        </select></div>
+      <div><label for="category">الفئة:</label><select id="category" required>
+          <option value="" disabled selected>اختر فئة...</option>
+        </select></div>
+      <div><label for="description">الوصف:</label><input type="text" id="description" placeholder="أدخل وصف (اختياري)"></div>
+      <div><label for="amount">المبلغ:</label><input type="number" id="amount" placeholder="أدخل المبلغ" required min="0.01" step="0.01"></div>
+      <button type="submit" id="submit-btn">إضافة المعاملة</button>
+      <button type="button" id="cancel-edit-btn" class="cancel-btn">إلغاء التعديل</button>
+    </form>
+
+    <hr>
+
+    <!-- قسم تحديد الميزانيات الشهرية -->
+    <div id="set-budgets-section">
+      <h3>الميزانيات الشهرية (للشهر الحالي: <span id="current-budget-month"></span>)</h3>
+      <div id="budget-list" class="budget-input-list">
+        <p>جاري تحميل فئات المصروفات...</p>
+      </div>
+      <p class="budget-note">ملاحظة: أدخل الميزانية الشهرية لكل فئة مصروفات. سيتم الحفظ تلقائيًا.</p>
+    </div>
+
+    <hr>
+
+    <!-- قسم التحكم في العرض (تصفية وبحث وتصدير) -->
+    <div id="view-controls">
+      <div id="filter-controls">
+        <label>تصفية حسب النوع:</label>
+        <button class="filter-btn active" data-filter="all">الكل</button>
+        <button class="filter-btn" data-filter="income">الدخل فقط</button>
+        <button class="filter-btn" data-filter="expense">المصروفات فقط</button>
+      </div>
+      <div id="search-control">
+        <label for="search-input">البحث في الوصف:</label>
+        <input type="search" id="search-input" placeholder="اكتب للبحث...">
+      </div>
+      <!-- <<< زر التصدير الجديد >>> -->
+      <div id="export-control">
+        <button id="export-csv-btn" class="export-btn">تصدير السجل (CSV)</button>
+      </div>
+      <!-- <<< نهاية زر التصدير >>> -->
+    </div>
+
+    <!-- قسم سجل المعاملات -->
+    <h3>سجل المعاملات</h3>
+    <table id="history-table">
+      <thead>
+        <tr>
+          <th>النوع</th>
+          <th>الفئة</th>
+          <th>الوصف</th>
+          <th>المبلغ</th>
+          <th>الوقت والتاريخ</th>
+          <th>إجراء</th>
+        </tr>
+      </thead>
+      <tbody id="history-list">
+        <tr>
+          <td colspan="6" style="text-align: center;">جاري التحميل...</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <!-- قسم الرسوم البيانية والتحليلات -->
+    <div class="analysis-section">
+      <div class="chart-box" id="main-chart-box">
+        <h3>تحليل الرصيد عبر الوقت</h3>
+        <div class="chart-container"><canvas id="finance-chart"></canvas></div>
+      </div>
+      <div class="category-summary-box">
+        <h3>تحليل المصروفات حسب الفئة</h3>
+        <div class="chart-container category-chart-container"><canvas id="category-chart"></canvas></div>
+      </div>
+      <div class="budget-progress-box">
+        <h3>متابعة الميزانيات (الشهر الحالي)</h3>
+        <ul id="budget-progress-list">
+          <li>لا توجد ميزانيات محددة لهذا الشهر.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- قسم إدارة الفئات -->
+    <hr>
+    <div id="manage-categories-section">
+      <h3>إدارة الفئات</h3>
+      <div class="category-management-area">
+        <div class="add-category-form">
+          <h4>إضافة فئة جديدة</h4>
+          <form id="add-category-form">
+            <div> <label for="new-category-name">اسم الفئة:</label> <input type="text" id="new-category-name" placeholder="مثال: تسوق" required> </div>
+            <div> <label for="new-category-type">نوع الفئة:</label> <select id="new-category-type" required>
+                <option value="expense" selected>مصروف</option>
+                <option value="income">دخل</option>
+              </select> </div> <button type="submit">إضافة الفئة</button>
+          </form>
+        </div>
+        <div class="current-categories">
+          <div class="category-list-box">
+            <h4>فئات الدخل الحالية</h4>
+            <ul id="income-categories-list">
+              <li>جاري التحميل...</li>
+            </ul>
+          </div>
+          <div class="category-list-box">
+            <h4>فئات المصروفات الحالية</h4>
+            <ul id="expense-categories-list">
+              <li>جاري التحميل...</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/randomcolor@0.6.2/randomColor.min.js"></script>
+</body>
+
+</html>
