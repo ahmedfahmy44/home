@@ -1,45 +1,45 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
+<html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>متتبع المصروفات</title>
-  <link rel="stylesheet" href="style.css"> <!-- ✅ تم إضافة رابط CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متتبع المصروفات البسيط</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
-
 <body>
-  <div class="container">
-    <h1>متتبع المصروفات البسيط</h1>
-
-    <!-- قسم الملخص المالي -->
-    <div class="summary-details">
-      <div class="detail-box income">
-        <h4>الدخل الكلي</h4>
-        <p id="total-income-display">0.00</p><span class="percentage" id="income-percentage">(0%)</span>
-      </div>
-      <div class="detail-box expense">
-        <h4>المصروفات الكلية</h4>
-        <p id="total-expense-display">0.00</p><span class="percentage" id="expense-percentage">(0%)</span>
-      </div>
-      <div class="detail-box balance">
-        <h4>الرصيد الحالي</h4>
-        <p id="balance-display">0.00</p><span class="percentage">&nbsp;</span>
-      </div>
+    <div class="container">
+        <h1>متتبع المصروفات البسيط</h1>
+        <div class="stats">
+            <div class="stat">
+                <h3>الرصيد الحالي</h3>
+                <p id="balance" class="amount">0.00</p>
+            </div>
+            <div class="stat">
+                <h3>المصروفات الكلية</h3>
+                <p id="expenses" class="amount red">0.00</p>
+                <p id="expense-percentage">(0%)</p>
+            </div>
+            <div class="stat">
+                <h3>الدخل الكلي</h3>
+                <p id="income" class="amount green">0.00</p>
+                <p id="income-percentage">(0%)</p>
+            </div>
+        </div>
+        <h2>إضافة / تعديل معاملة</h2>
+        <form id="transaction-form">
+            <label for="type">النوع:</label>
+            <select id="type">
+                <option value="income">دخل (+)</option>
+                <option value="expense">مصروف (-)</option>
+            </select>
+            <label for="category">الفئة:</label>
+            <input type="text" id="category" placeholder="أدخل فئة ..">
+            <label for="amount">المبلغ:</label>
+            <input type="number" id="amount" placeholder="أدخل المبلغ" required>
+            <button type="submit">إضافة المعاملة</button>
+        </form>
+        <ul id="transaction-list"></ul>
     </div>
-
-    <hr>
-
-    <!-- قسم نموذج الإضافة/التعديل -->
-    <h3>إضافة / تعديل معاملة</h3>
-    <form id="transaction-form">
-      <div>
-        <!-- باقي النموذج -->
-      </div>
-    </form>
-  </div>
-
-  <script src="script.js" defer></script> <!-- ✅ تم إضافة رابط JavaScript -->
 </body>
-
 </html>
