@@ -8,7 +8,8 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
     margin: auto;
     background: white;
     padding: 20px;
@@ -22,7 +23,9 @@ h1 {
 
 .summary {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 20px 0;
 }
 
@@ -31,7 +34,9 @@ h1 {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    width: 30%;
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
 }
 
 .red {
@@ -50,6 +55,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 10px;
+    flex-wrap: wrap;
     margin-top: 10px;
 }
 
@@ -57,12 +63,14 @@ input, select, button {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
 }
 
 button {
     background-color: #28a745;
     color: white;
     cursor: pointer;
+    border: none;
 }
 
 button:hover {
@@ -72,6 +80,7 @@ button:hover {
 ul {
     list-style: none;
     padding: 0;
+    margin-top: 10px;
 }
 
 ul li {
@@ -79,4 +88,22 @@ ul li {
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .summary {
+        flex-direction: column;
+    }
+    
+    .transaction-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input, select, button {
+        width: 100%;
+    }
 }
